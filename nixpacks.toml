@@ -1,0 +1,19 @@
+# Nixpacks configuration for Railway deployment
+
+[phases.setup]
+nixPkgs = ["nodejs-18_x", "npm-9_x"]
+
+[phases.install]
+cmds = [
+  "npm ci --omit=dev",
+  "cd client && npm ci --legacy-peer-deps"
+]
+
+[phases.build]
+cmds = [
+  "cd client && npx react-scripts build",
+  "cd .."
+]
+
+[start]
+cmd = "node server.js"
